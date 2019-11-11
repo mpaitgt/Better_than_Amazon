@@ -1,6 +1,5 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
-// var displayAll = require('./bamazonCustomer.js');
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -28,12 +27,15 @@ function managerPrompt() {
     ]).then(function(res) {
         switch (res['action']) {
             case 'View Products for Sale':
-                displayAll();
+                displayAllProducts();
+                managerPrompt();
                 break;
             case 'View Low Inventory':
                 lowInventory();
                 break;
             case 'Add to Inventory':
+                displayAllProducts();
+                increaseInventory();
                 break;
             case 'Add New Product':
                 addNewProduct();
@@ -44,7 +46,7 @@ function managerPrompt() {
     })
 }
 
-function displayAll() {
+function displayAllProducts() {
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
         console.log(`Item ID | Product | Department | Cost | Stock`)
@@ -103,8 +105,33 @@ function addNewProduct() {
             }
         ], function(err) {
             if (err) throw err;
-            displayAll();
+            displayAllProducts();
             console.log(`\nItem has been added to inventory\n`);
         })
     })
 }
+
+function increaseInventory() {
+    inquirer.prompt([
+        {
+            message: 'Select the product\'s id:',
+            type: 'input',
+            name: 'product'
+        },
+        {
+            message: 'Amount of inventory added:',
+            type: 'number',
+            name: 'inventory'
+        }
+    ]).then(function(res) {
+        console.log(res);
+        connection.query('UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?',
+        [res['inventory'], res['product']],
+        function(err) {
+            if (err) throw err;
+            console.log('Your inventory has been updated.');
+        })
+    })
+}
+
+// console.table npm package

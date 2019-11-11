@@ -11,7 +11,9 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    // connection.end();
+    displayAll();
+    userSelect();
+    connection.end();
 })
 
 function displayAll() {
@@ -30,7 +32,6 @@ function displayAll() {
 function updateQuantity(num, qty) {
     connection.query('SELECT * FROM products WHERE item_id = ?', [num], function(err, res) {
         if (err) throw err;
-        console.log(res);
         var stock = res[0].stock_quantity;
         var purchaseQty = parseInt(qty);
         var price = parseFloat(res[0].price);
@@ -44,7 +45,9 @@ function updateQuantity(num, qty) {
                 console.log(`\nThe cost of your order is ${price * purchaseQty}`);
             })
         }
+        userSelect();
     })
+    
 }
 
  function userSelect() {
