@@ -35,13 +35,10 @@ function managerPrompt() {
                 managerPrompt();
                 break;
             case 'Add to Inventory':
-                displayAllProducts();
                 increaseInventory();
-                managerPrompt();
                 break;
             case 'Add New Product':
                 addNewProduct();
-                managerPrompt();
                 break;
             default:
                 console.log('Something went wrong.');
@@ -100,12 +97,14 @@ function addNewProduct() {
         ], function(err) {
             if (err) throw err;
             displayAllProducts();
-            console.log(`\nItem has been added to inventory\n`);
+            console.log(`\n\nItem has been added to inventory\n\n`);
         })
+        managerPrompt();
     })
 }
 
 function increaseInventory() {
+    displayAllProducts();
     inquirer.prompt([
         {
             message: 'Select the product\'s id:',
@@ -123,7 +122,8 @@ function increaseInventory() {
         [res['inventory'], res['product']],
         function(err) {
             if (err) throw err;
-            console.log('Your inventory has been updated.');
+            console.log('\n\nYour inventory has been updated.\n');
         })
+        managerPrompt();
     })
 }

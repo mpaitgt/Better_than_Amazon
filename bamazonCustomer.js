@@ -17,7 +17,8 @@ connection.connect(function(err) {
 })
 
 function displayAll() {
-    connection.query('SELECT * FROM products', function(err, res) {
+    var sql = 'SELECT products.item_id, products.product_name, products.price, products.stock_quantity FROM products';
+    connection.query(sql, function(err, res) {
         if (err) throw err;
         console.log(`\n`);
         console.table(res);
@@ -32,18 +33,17 @@ function updateQuantity(num, qty) {
         var price = parseFloat(res[0].price);
         
         if (stock < purchaseQty) {
-            console.log('\nInsufficient quantity! Sorry.');
+            console.log('\n\nInsufficient quantity! Sorry.\n');
+
         } else {
             connection.query(`UPDATE products SET stock_quantity = ${stock - purchaseQty} WHERE item_id = ?`, [num], function() {
-                console.log('\nYou\'re in luck - we have that in stock!');
-                console.log(`\nThe new stock is ${stock - purchaseQty}`);
-                console.log(`\nThe cost of your order is ${parseFloat(price * purchaseQty, 2)}`);
+                console.log('\n\nYou\'re in luck - we have that in stock!');
+                console.log(`\nThe cost of your order is ${parseFloat(price * purchaseQty, 2)}\n`);
             })
         }
         productSales(price, purchaseQty, num);
         userSelect();
     })
-    
 }
 
  function userSelect() {
@@ -60,7 +60,7 @@ function updateQuantity(num, qty) {
         }
     ]).then(
         function(res) {
-            updateQuantity(res.item_id, res.quantity);
+                updateQuantity(res.item_id, res.quantity);
         });
 };
 
