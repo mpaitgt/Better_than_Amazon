@@ -13,19 +13,14 @@ connection.connect(function(err) {
     if (err) throw err;
     displayAll();
     userSelect();
-    connection.end();
+    // connection.end();
 })
 
 function displayAll() {
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
-        console.log(`Item ID | Product | Department | Cost | Stock`)
-        for(var i = 0; i < res.length; i++) {
-            console.log(
-                `${res[i].item_id} | ${res[i].product_name} | ${res[i].department_name} | $${res[i].price} | ${res[i].stock_quantity}`
-            );
-            console.log(`-----------------------------------------------------------------------------------`);
-        }
+        console.log(`\n`);
+        console.table(res);
     })
 }
 
@@ -42,9 +37,10 @@ function updateQuantity(num, qty) {
             connection.query(`UPDATE products SET stock_quantity = ${stock - purchaseQty} WHERE item_id = ?`, [num], function() {
                 console.log('\nYou\'re in luck - we have that in stock!');
                 console.log(`\nThe new stock is ${stock - purchaseQty}`);
-                console.log(`\nThe cost of your order is ${price * purchaseQty}`);
+                console.log(`\nThe cost of your order is ${parseFloat(price * purchaseQty, 2)}`);
             })
         }
+        productSales(price, purchaseQty, num);
         userSelect();
     })
     
@@ -67,5 +63,12 @@ function updateQuantity(num, qty) {
             updateQuantity(res.item_id, res.quantity);
         });
 };
+
+function productSales(x, y, z) {
+    var sale = x * y;
+    connection.query(`UPDATE products SET product_sales = product_sales + ${sale} WHERE item_id = ${z}`, function(err) {
+        if (err) throw err;
+    })
+}
 
 // module.exports = displayAll();

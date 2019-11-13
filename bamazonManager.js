@@ -32,13 +32,16 @@ function managerPrompt() {
                 break;
             case 'View Low Inventory':
                 lowInventory();
+                managerPrompt();
                 break;
             case 'Add to Inventory':
                 displayAllProducts();
                 increaseInventory();
+                managerPrompt();
                 break;
             case 'Add New Product':
                 addNewProduct();
+                managerPrompt();
                 break;
             default:
                 console.log('Something went wrong.');
@@ -49,25 +52,16 @@ function managerPrompt() {
 function displayAllProducts() {
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
-        console.log(`Item ID | Product | Department | Cost | Stock`)
-        for(var i = 0; i < res.length; i++) {
-            console.log(
-                `${res[i].item_id} | ${res[i].product_name} | ${res[i].department_name} | $${res[i].price} | ${res[i].stock_quantity}`
-            );
-            console.log(`-----------------------------------------------------------------------------------`);
-        }
+        console.log(`\n`);
+        console.table(res);
     })
 }
 
 function lowInventory() {
     connection.query('SELECT * FROM products WHERE stock_quantity < 5', function(err, res) {
         if (err) throw err;
-        for(var i = 0; i < res.length; i++) {
-            console.log(
-                `${res[i].item_id} | ${res[i].product_name} | ${res[i].department_name} | $${res[i].price} | ${res[i].stock_quantity}`
-            );
-            console.log(`-----------------------------------------------------------------------------------`);
-        }
+        console.log(`\n`);
+        console.table(res);
     })
 }
 
@@ -133,5 +127,3 @@ function increaseInventory() {
         })
     })
 }
-
-// console.table npm package
