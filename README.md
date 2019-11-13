@@ -43,11 +43,11 @@
 ### Supervisor view
 - Supervisors have the ability to create new departments for organization purposes
 
-![supervisor-1](https://user-images.githubusercontent.com/51139272/68810536-57db0f80-063c-11ea-8add-fee2fc0b5bed.JPG)
+![supervisor-2](https://user-images.githubusercontent.com/51139272/68810538-590c3c80-063c-11ea-8f5c-718412c077c6.JPG)
 
 - Most importantly, supervisors are able to view department __overhead costs__ as well as __total sales__ per department. This view will also calculate total profits based on those values.
 
-![supervisor-2](https://user-images.githubusercontent.com/51139272/68810538-590c3c80-063c-11ea-8f5c-718412c077c6.JPG)
+![supervisor-1](https://user-images.githubusercontent.com/51139272/68810536-57db0f80-063c-11ea-8add-fee2fc0b5bed.JPG)
 
 ## Technologies Used
 - Node.JS
