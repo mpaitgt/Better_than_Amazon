@@ -7,7 +7,7 @@
 !()[images/customer-1.gif]
 
 - The customer can then choose which product they would like to buy using the __item id__, and they are asked for a __quantity__. If the item is in stock, they are given a total _(item price * quantity purchased)_. The customer can then choose to buy more products if they so choose
-!()[images/customer-2.gif]
+!()[./images/customer-2.gif]
 
 - If the item is out of stock, the customer is told and they are prompted to purchase something else
 !()[images/customer-3.gif]
