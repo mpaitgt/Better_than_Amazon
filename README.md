@@ -4,7 +4,7 @@
 
 ### Customer View
 - First, the customer is given a list of all the available products
-![](images/customer-1.jpg)
+![customer-1](https://user-images.githubusercontent.com/51139272/68810289-cd92ab80-063b-11ea-8b97-38503b528a36.JPG)
 
 - The customer can then choose which product they would like to buy using the __item id__, and they are asked for a __quantity__. If the item is in stock, they are given a total _(item price * quantity purchased)_. The customer can then choose to buy more products if they so choose
 ![](images/customer-2.jpg)
